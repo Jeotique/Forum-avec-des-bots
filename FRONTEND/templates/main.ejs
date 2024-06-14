@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'acceuil</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+
+<%- include('../partials/header', {user, hoster, path}) %>
+
+<body>
+    <main>
+        <section class="hero">
+            <div class="hero-container">
+                <h1>Bienvenue sur MonForum</h1>
+                <p>Un forum pour discuter de tout et de rien</p>
+            </div>
+        </section>
+
+        <section class="categories">
+            <h2>Catégories</h2>
+            <div class="categories-container">
+                <% if (!categories || categories.length === 0) { %>
+                    <p>Aucune catégorie n'a été trouvée</p>
+                <% } else { %>
+                <% categories.forEach(category => { %>
+                    <a href="<%= hoster %>/categories/<%= category.id %>" class="category">
+                        <h3><%= category.name %></h3>
+                        <p><%= category.description %></p>
+                    </a>
+                <% }) %>
+                <% } %>
+            </div>
+        </section>
+    </main>
+</body>
+
+<%- include('../partials/footer') %>
+
+</html>
