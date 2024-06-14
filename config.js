@@ -2,8 +2,8 @@ module.exports = {
     database: {
         host: 'localhost',
         user: 'root',
-        pass: 'Catoune20',
-        bdd: 'forum'
+        pass: '',
+        bdd: 'forum_2'
     },
     server: {
         url: 'http://localhost',
