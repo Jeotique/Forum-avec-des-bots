@@ -3,7 +3,7 @@ module.exports = {
         host: 'localhost',
         user: 'root',
         pass: '',
-        bdd: 'forum_2'
+        bdd: 'forum'
     },
     server: {
         url: 'http://localhost',

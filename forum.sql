@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 14 juin 2024 à 10:11
--- Version du serveur : 8.2.0
--- Version de PHP : 8.2.13
+-- Généré le : jeu. 27 juin 2024 à 08:51
+-- Version du serveur : 8.3.0
+-- Version de PHP : 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `forum_2`
+-- Base de données : `forum`
 --
 
 -- --------------------------------------------------------
@@ -42,6 +42,30 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `ID_Topic` (`ID_Topic`),
   KEY `ID_Utilisateur` (`ID_Utilisateur`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `post_like_dislike`
+--
+
+DROP TABLE IF EXISTS `post_like_dislike`;
+CREATE TABLE IF NOT EXISTS `post_like_dislike` (
+  `ID_Utilisateur` int NOT NULL,
+  `ID_Post` int NOT NULL,
+  `Type` varchar(50) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  PRIMARY KEY (`ID_Post`),
+  UNIQUE KEY `Type` (`Type`),
+  KEY `ID_Utilisateur` (`ID_Utilisateur`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+
+--
+-- Déchargement des données de la table `post_like_dislike`
+--
+
+INSERT INTO `post_like_dislike` (`ID_Utilisateur`, `ID_Post`, `Type`) VALUES
+(1, 4, 'dislike'),
+(1, 3, 'like');
 
 -- --------------------------------------------------------
 
@@ -80,6 +104,29 @@ CREATE TABLE IF NOT EXISTS `reponse` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `reponse_like_dislike`
+--
+
+DROP TABLE IF EXISTS `reponse_like_dislike`;
+CREATE TABLE IF NOT EXISTS `reponse_like_dislike` (
+  `ID_Utilisateur` int NOT NULL,
+  `ID_Reponse` int NOT NULL,
+  `Type` varchar(50) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  PRIMARY KEY (`ID_Utilisateur`),
+  UNIQUE KEY `Type` (`Type`),
+  KEY `ID_Reponse` (`ID_Reponse`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+
+--
+-- Déchargement des données de la table `reponse_like_dislike`
+--
+
+INSERT INTO `reponse_like_dislike` (`ID_Utilisateur`, `ID_Reponse`, `Type`) VALUES
+(1, 4, 'like');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `role`
 --
 
@@ -108,18 +155,60 @@ CREATE TABLE IF NOT EXISTS `tag` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `tags`
+--
+
+DROP TABLE IF EXISTS `tags`;
+CREATE TABLE IF NOT EXISTS `tags` (
+  `ID_Tag` int NOT NULL AUTO_INCREMENT,
+  `Nom_Tag` varchar(25) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  PRIMARY KEY (`ID_Tag`),
+  UNIQUE KEY `Nom_Tag` (`Nom_Tag`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+
+--
+-- Déchargement des données de la table `tags`
+--
+
+INSERT INTO `tags` (`ID_Tag`, `Nom_Tag`) VALUES
+(1, 'Test_tag'),
+(2, 'Highway 37'),
+(3, 'Highway 375'),
+(4, 'Highway 3754'),
+(5, 'Highway 3754564'),
+(6, 'Highway 375445785564'),
+(7, 'Highway 3'),
+(8, 'Highway 31'),
+(9, 'ccccc'),
+(10, 'wwwww'),
+(11, 'www'),
+(12, 'ww'),
+(13, 'aa'),
+(14, 'aaa'),
+(15, 'aaaa');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `topics`
 --
 
 DROP TABLE IF EXISTS `topics`;
 CREATE TABLE IF NOT EXISTS `topics` (
   `ID_Topic` int NOT NULL AUTO_INCREMENT,
-  `Nom_Topic` varchar(50) NOT NULL,
-  `ID_Utilisateur` int NOT NULL,
-  PRIMARY KEY (`ID_Topic`),
-  UNIQUE KEY `Nom_Topic` (`Nom_Topic`),
-  KEY `ID_Utilisateur` (`ID_Utilisateur`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `userId` int NOT NULL,
+  PRIMARY KEY (`ID_Topic`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `topics`
+--
+
+INSERT INTO `topics` (`ID_Topic`, `title`, `description`, `userId`) VALUES
+(1, 'bm', 'ggggg', 457745),
+(2, 'audi ', 'hhhhh', 457745);
 
 -- --------------------------------------------------------
 
@@ -136,6 +225,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(50) NOT NULL,
   `receivemails` int NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`ID`, `username`, `displayName`, `email`, `password`, `receivemails`) VALUES
+(457745, 'johan', 'johan', 'johan.tichit@ynov.com', '010422jo', 0);
 
 -- --------------------------------------------------------
 

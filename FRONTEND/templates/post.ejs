@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post.Titre %></title>
+    <link rel="stylesheet" href="/assets/css/post.css">
+</head>
+<body>
+    <%- include('../partials/header', {user, hoster, path}) %>
+    <main>
+        <section class="post-details">
+            <h1><%= post.Titre %></h1>
+            <p><%= post.Contenu %></p>
+            <span><%= post.Date_de_création %></span>
+        </section>
+
+        <section class="responses">
+            <h2>Réponses</h2>
+            <div class="responses-container">
+                <% if (!responses || responses.length === 0) { %>
+                    <p>Aucune réponse pour ce post.</p>
+                <% } else { %>
+                    <% responses.forEach(response => { %>
+                        <div class="response">
+                            <p><%= response.Contenu %></p>
+                            <span><%= response.Date_De_Réponse %></span>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+        </section>
+
+        <% if (user) { %>
+        <section class="create-response">
+            <h2>Ajouter une réponse</h2>
+            <form action="/posts/<%= post.ID_Post %>/responses" method="POST">
+                <div>
+                    <label for="content">Réponse :</label>
+                    <textarea id="content" name="content" required></textarea>
+                </div>
+                <button type="submit">Poster</button>
+            </form>
+        </section>
+        <% } %>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

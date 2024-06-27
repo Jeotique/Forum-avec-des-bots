@@ -1,4 +1,5 @@
 const Bdd = require('./bdd/bdd');
+const session = require('express-session');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');

@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const config = require('../config');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -23,6 +24,12 @@ module.exports = class Server {
         this.app.engine("html", ejs.renderFile);
         this.app.use("/assets", express.static(resolve(`./FRONTEND/assets`)));
         this.app.set('views', path.join(__dirname, '../FRONTEND/templates'));
+        this.app.use(session({
+            secret: "dhftfdjdtjghjgykhfdrtytuyjg",
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: false }
+        }));
         this.routes = new routes(this);
         this.app.listen(config.server.port, () => {
             console.log(`Server is running on ${config.server.url}:${config.server.port}`);
@@ -32,7 +39,7 @@ module.exports = class Server {
     renderTemplate(res, req, template, data = {}){
         const baseData = {
             path: req.path,
-            user: null,
+            user: req.session?.user || null,
             hoster: `${config.server.url}:${config.server.port}`,
             categories: []
         };
