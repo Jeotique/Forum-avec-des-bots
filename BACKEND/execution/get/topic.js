@@ -1,17 +1,20 @@
 exports.Topic = async (req, res, server) => {
     const topicId = req.params.id;
-    console.log('Request to fetch topic with ID:', topicId); // Journal de débogage
     try {
-        const topic = await server.api.functions.topic.GetById(topicId, server);
+        console.log(`Fetching topic with ID: ${topicId}`);
+        const topic = await server.api.functions.topics.GetById(topicId, server);
         if (!topic) {
-            console.log('No topic found with ID:', topicId); // Journal de débogage
-            return res.status(404).json({ error: 'Topic not found' });
+            throw new Error('Topic not found');
         }
-        const posts = await server.api.functions.post.GetAllByTopic(topicId, server);
-        console.log('Rendering topic page with topic and posts'); // Journal de débogage
+
+        console.log(`Topic fetched successfully: ${JSON.stringify(topic)}`);
+        
+        const posts = await server.api.functions.posts.GetByTopicId(topicId, server);
+        console.log(`Posts fetched successfully: ${JSON.stringify(posts)}`);
+        
         server.renderTemplate(res, req, 'topic', { topic, posts });
     } catch (err) {
-        console.error('Error loading topic details:', err); // Journal de débogage
+        console.error('Error loading topic details:', err);
         res.status(500).json({ error: 'Failed to load topic details' });
     }
 };

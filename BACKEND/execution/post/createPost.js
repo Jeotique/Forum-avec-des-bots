@@ -1,20 +1,19 @@
 exports.CreatePost = async (req, res, server) => {
     const topicId = req.params.id;
     const { content, title } = req.body;
-    const userId = req.session.user.ID;
+    const userId = req.session.user.ID; // Assurez-vous que l'utilisateur est connecté
 
     if (!content || !title) {
-        return res.status(400).json({ error: 'Content and title are required' });
+        return res.status(400).json({ error: 'Title and content are required' });
     }
 
     try {
-        const created = await server.api.functions.post.Create(content, title, userId, topicId, server);
-        if (created) {
-            return res.redirect(`/topics/${topicId}`);
-        } else {
-            return res.status(500).json({ error: 'Failed to post message' });
-        }
+        console.log(`Inserting post for topic ID: ${topicId} by user ID: ${userId}`);
+        await server.api.functions.posts.Create(content, title, topicId, userId, server);
+        console.log('Post inserted successfully');
+        res.redirect(`/topics/${topicId}`);
     } catch (err) {
-        return res.status(500).json({ error: 'An error occurred while posting the message' });
+        console.error('Error posting message:', err);
+        res.status(500).json({ error: 'An error occurred while posting the message' });
     }
 };

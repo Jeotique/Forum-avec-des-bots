@@ -1,7 +1,7 @@
 const { Create } = require('./Create.js');
-const { GetAllByPost } = require('./GetAllByPost.js');
+const { GetByPostId } = require('./GetByPostId');
 
 module.exports = {
     Create,
-    GetAllByPost
+    GetByPostId
 };

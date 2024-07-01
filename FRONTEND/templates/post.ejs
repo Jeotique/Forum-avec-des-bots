@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= post.Titre %></title>
-    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
 </head>
+
+<%- include('../partials/header', { user, hoster, path }) %>
+
 <body>
-    <%- include('../partials/header', {user, hoster, path}) %>
     <main>
-        <section class="post-details">
-            <h1><%= post.Titre %></h1>
-            <p><%= post.Contenu %></p>
-            <span><%= post.Date_de_création %></span>
-        </section>
+        <h1><%= post.Titre %></h1>
+        <p><%= post.Contenu %></p>
 
         <section class="responses">
             <h2>Réponses</h2>
@@ -24,7 +23,7 @@
                     <% responses.forEach(response => { %>
                         <div class="response">
                             <p><%= response.Contenu %></p>
-                            <span><%= response.Date_De_Réponse %></span>
+                            <p>Posté par l'utilisateur ID <%= response.ID_Utilisateur %> le <%= response.Date_De_Réponse %></p>
                         </div>
                     <% }) %>
                 <% } %>
@@ -32,18 +31,19 @@
         </section>
 
         <% if (user) { %>
-        <section class="create-response">
-            <h2>Ajouter une réponse</h2>
-            <form action="/posts/<%= post.ID_Post %>/responses" method="POST">
-                <div>
-                    <label for="content">Réponse :</label>
-                    <textarea id="content" name="content" required></textarea>
-                </div>
-                <button type="submit">Poster</button>
-            </form>
-        </section>
+            <section class="new-response">
+                <h2>Nouvelle Réponse</h2>
+                <form action="<%= hoster %>/posts/<%= post.ID_Post %>/responses" method="POST">
+                    <div>
+                        <label for="content">Contenu :</label>
+                        <textarea id="content" name="content" required></textarea>
+                    </div>
+                    <button type="submit">Répondre</button>
+                </form>
+            </section>
         <% } %>
     </main>
-    <%- include('../partials/footer') %>
 </body>
+
+<%- include('../partials/footer') %>
 </html>
