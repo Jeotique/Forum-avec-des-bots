@@ -26,6 +26,9 @@
                         <div class="topic">
                             <h3><a href="/topics/<%= topic.ID_Topic %>"><%= topic.title %></a></h3>
                             <p><%= topic.description %></p>
+                            <p>Tags: <%= topic.tags %></p>
+                            <p>État: <%= topic.etat %></p>
+                            <p>Créé par: <%= topic.username %> le <%= topic.createdAt %></p>
                         </div>
                     <% }) %>
                 <% } %>
@@ -33,19 +36,9 @@
         </section>
 
         <% if (user) { %>
-        <section class="create-topic">
+        <section class="create-topic-link">
             <h2>Créer un nouveau topic</h2>
-            <form action="/topics" method="POST">
-                <div>
-                    <label for="title">Titre :</label>
-                    <input type="text" id="title" name="title" required>
-                </div>
-                <div>
-                    <label for="description">Description :</label>
-                    <textarea id="description" name="description" required></textarea>
-                </div>
-                <button type="submit">Créer</button>
-            </form>
+            <a href="/topics/create" class="create-topic-button">Créer un Topic</a>
         </section>
         <% } %>
     </main>

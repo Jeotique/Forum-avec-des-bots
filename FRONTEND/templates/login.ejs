@@ -6,16 +6,14 @@
     <title>Connexion</title>
     <link rel="stylesheet" href="/assets/css/login.css">
 </head>
-
-<%- include('../partials/header', {user, hoster, path}) %>
-
 <body>
+    <%- include('../partials/header', {user, hoster, path}) %>
     <main>
         <h1>Connexion</h1>
         <form action="<%= hoster %>/login" method="POST">
             <div>
-                <label for="identifier">E-mail ou nom d'utilisateur :</label>
-                <input type="text" id="identifier" name="identifier" required>
+                <label for="emailOrUsername">Email ou Nom d'utilisateur :</label>
+                <input type="text" id="emailOrUsername" name="emailOrUsername" required>
             </div>
             <div>
                 <label for="password">Mot de passe :</label>
@@ -24,8 +22,6 @@
             <button type="submit">Se connecter</button>
         </form>
     </main>
+    <%- include('../partials/footer') %>
 </body>
-
-<%- include('../partials/footer') %>
-
 </html>

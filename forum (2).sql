@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 27 juin 2024 à 08:51
+-- Généré le : lun. 01 juil. 2024 à 07:07
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -41,7 +41,15 @@ CREATE TABLE IF NOT EXISTS `post` (
   PRIMARY KEY (`ID_Post`),
   KEY `ID_Topic` (`ID_Topic`),
   KEY `ID_Utilisateur` (`ID_Utilisateur`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `post`
+--
+
+INSERT INTO `post` (`ID_Post`, `Contenu`, `Titre`, `Date_de_création`, `Etat`, `Likes`, `Dislikes`, `ID_Topic`, `ID_Utilisateur`) VALUES
+(1, 'aaaaa', 'a', '2024-06-27 11:02:59', 'active', NULL, NULL, 1, 457745),
+(2, 'bbbbb', 'b', '2024-06-27 11:28:22', 'active', NULL, NULL, 1, 457745);
 
 -- --------------------------------------------------------
 
@@ -99,7 +107,15 @@ CREATE TABLE IF NOT EXISTS `reponse` (
   PRIMARY KEY (`ID_Reponse`),
   KEY `ID_Utilisateur` (`ID_Utilisateur`),
   KEY `ID_Post` (`ID_Post`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `reponse`
+--
+
+INSERT INTO `reponse` (`ID_Reponse`, `Contenu`, `Date_De_Réponse`, `Likes`, `Dislikes`, `ID_Utilisateur`, `ID_Post`) VALUES
+(1, 'aaaaaaa\r\n', '2024-06-27 12:07:38', NULL, NULL, 457745, 1),
+(2, 'bbbbbbb', '2024-06-27 12:07:47', NULL, NULL, 457745, 1);
 
 -- --------------------------------------------------------
 
@@ -199,16 +215,20 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `userId` int NOT NULL,
+  `tags` varchar(255) DEFAULT NULL,
+  `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `etat` enum('ouvert','fermé','archivé') DEFAULT 'ouvert',
   PRIMARY KEY (`ID_Topic`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `topics`
 --
 
-INSERT INTO `topics` (`ID_Topic`, `title`, `description`, `userId`) VALUES
-(1, 'bm', 'ggggg', 457745),
-(2, 'audi ', 'hhhhh', 457745);
+INSERT INTO `topics` (`ID_Topic`, `title`, `description`, `userId`, `tags`, `createdAt`, `etat`) VALUES
+(1, 'bm', 'ggggg', 457745, NULL, '2024-06-28 06:27:34', 'ouvert'),
+(2, 'audi ', 'hhhhh', 457745, NULL, '2024-06-28 06:27:34', 'ouvert'),
+(3, 'mini', 'hhhhh', 457745, 'ki, ji, li', '2024-06-28 06:37:16', 'ouvert');
 
 -- --------------------------------------------------------
 
@@ -222,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(50) NOT NULL,
   `displayName` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `receivemails` int NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -231,41 +251,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`ID`, `username`, `displayName`, `email`, `password`, `receivemails`) VALUES
-(457745, 'johan', 'johan', 'johan.tichit@ynov.com', '010422jo', 0);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `utilisateur`
---
-
-DROP TABLE IF EXISTS `utilisateur`;
-CREATE TABLE IF NOT EXISTS `utilisateur` (
-  `ID_Utilisateur` int NOT NULL AUTO_INCREMENT,
-  `Nom_Utilisateur` varchar(25) NOT NULL,
-  `Mot_de_passe` varchar(255) NOT NULL,
-  `Photo_de_profil` varchar(50) NOT NULL,
-  `Bio` varchar(200) DEFAULT NULL,
-  `Dernière_connection` datetime NOT NULL,
-  `Email` varchar(191) NOT NULL,
-  PRIMARY KEY (`ID_Utilisateur`),
-  UNIQUE KEY `Nom_Utilisateur` (`Nom_Utilisateur`),
-  UNIQUE KEY `Email` (`Email`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `utilisateur_role`
---
-
-DROP TABLE IF EXISTS `utilisateur_role`;
-CREATE TABLE IF NOT EXISTS `utilisateur_role` (
-  `ID_Utilisateur` int NOT NULL,
-  `ID_Role` varchar(50) NOT NULL,
-  PRIMARY KEY (`ID_Utilisateur`,`ID_Role`),
-  KEY `ID_Role` (`ID_Role`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+(715231, 'Johan', 'Johan', 'johan.tichit@ynov.com', '87e76dfb20cd0b4ac8a054cdefbaae8a0641d96f74146e51bc4cc005cf437153e564009f879843fa23099c1c4462d08b642b2954d5d3987f57c257ceda2435ac', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

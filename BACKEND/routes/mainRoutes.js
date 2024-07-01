@@ -15,10 +15,12 @@ module.exports = class mainRoutes {
         this.router.get('/login', (req, res) => execution.getExec.Login(req, res, this.server));
         this.router.post('/login', (req, res) => execution.postExec.Login(req, res, this.server));
         this.router.post('/topics', (req, res) => execution.postExec.CreateTopic(req, res, this.server));
-        this.router.get('/topics/:id', (req, res) => execution.getExec.Topic(req, res, this.server)); 
-        this.router.post('/topics/:id/posts', (req, res) => execution.postExec.CreatePost(req, res, this.server)); 
+        this.router.get('/topics/create', (req, res) => execution.getExec.CreateTopicForm(req, res, this.server));
+        this.router.get('/topics/:id', (req, res) => execution.getExec.Topic(req, res, this.server));
+        this.router.post('/topics/:id/posts', (req, res) => execution.postExec.CreatePost(req, res, this.server));
         this.router.get('/posts/:id', (req, res) => execution.getExec.Post(req, res, this.server));
         this.router.post('/posts/:id/responses', (req, res) => execution.postExec.CreateResponse(req, res, this.server));
+        this.router.get('/logout', (req, res) => execution.getExec.Logout(req, res, this.server)); // Route pour déconnexion
         this.server.app.use('/', this.router);
     }
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un Topic</title>
+    <link rel="stylesheet" href="/assets/css/createTopic.css">
+</head>
+<body>
+    <%- include('../partials/header', {user, hoster, path}) %>
+    <main>
+        <section class="create-topic">
+            <h2>Créer un nouveau topic</h2>
+            <form action="/topics" method="POST">
+                <div>
+                    <label for="title">Titre :</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div>
+                    <label for="description">Description :</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <div>
+                    <label for="tags">Tags (séparés par des virgules) :</label>
+                    <input type="text" id="tags" name="tags">
+                </div>
+                <button type="submit">Créer</button>
+            </form>
+        </section>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

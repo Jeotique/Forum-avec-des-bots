@@ -1,6 +1,7 @@
-exports.Create = (title, description, userId, server) => {
+exports.Create = (title, description, tags, userId, server) => {
     return new Promise((resolve, reject) => {
-        server.api.bdd.query('INSERT INTO topics (title, description, userId) VALUES (?, ?, ?)', [title, description, userId], (err, result) => {
+        const query = 'INSERT INTO topics (title, description, tags, userId, etat, createdAt) VALUES (?, ?, ?, ?, "ouvert", NOW())';
+        server.api.bdd.query(query, [title, description, tags, userId], (err, result) => {
             if (err) {
                 reject(err);
             } else {
@@ -8,4 +9,4 @@ exports.Create = (title, description, userId, server) => {
             }
         });
     });
-}
+};
