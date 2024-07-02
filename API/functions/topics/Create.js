@@ -1,11 +1,14 @@
-exports.Create = (title, description, tags, userId, server) => {
+exports.Create = (title, description, userId, tags, server) => {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO topics (title, description, tags, userId, etat, createdAt) VALUES (?, ?, ?, ?, "ouvert", NOW())';
-        server.api.bdd.query(query, [title, description, tags, userId], (err, result) => {
+        console.log(`Executing query to insert topic with title: ${title}`);
+        const query = 'INSERT INTO topics (title, description, userId, tags, createdAt, etat) VALUES (?, ?, ?, ?, NOW(), "ouvert")';
+        server.api.bdd.query(query, [title, description, userId, tags], (err, result) => {
             if (err) {
+                console.error('Error during query execution:', err);
                 reject(err);
             } else {
-                resolve(true);
+                console.log('Topic inserted successfully');
+                resolve(result.insertId);
             }
         });
     });

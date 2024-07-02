@@ -11,7 +11,7 @@ exports.GetById = (id, userId, server) => {
             if (err) {
                 reject(err);
             } else {
-                resolve(result[0]);
+                resolve(result.length > 0 ? result[0] : null);
             }
         });
     });
