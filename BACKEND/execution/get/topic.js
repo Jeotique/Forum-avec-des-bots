@@ -1,8 +1,9 @@
 exports.Topic = async (req, res, server) => {
     const topicId = req.params.id;
+    const userId = req.session.userId;
     try {
         console.log(`Fetching topic with ID: ${topicId}`);
-        const topic = await server.api.functions.topics.GetById(topicId, server);
+        const topic = await server.api.functions.topics.GetById(topicId, userId, server);
         if (!topic) {
             throw new Error('Topic not found');
         }
