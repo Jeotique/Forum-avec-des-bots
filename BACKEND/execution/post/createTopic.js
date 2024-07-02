@@ -7,7 +7,7 @@ exports.CreateTopic = async (req, res, server) => {
     }
 
     try {
-        const created = await server.api.functions.topic.Create(title, description, tags, userId, server);
+        const created = await server.api.functions.topics.Create(title, description, tags, userId, server);
         if (created) {
             return res.redirect('/');
         } else {

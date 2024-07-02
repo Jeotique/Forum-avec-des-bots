@@ -1,11 +1,12 @@
-exports.GetById = (id, server) => {
+exports.GetById = (id, userId, server) => {
     return new Promise((resolve, reject) => {
         const query = `
-            SELECT topics.*, users.username
+            SELECT topics.*, users.ID as userId, users.username
             FROM topics
-            JOIN users ON topics.userId = users.ID
+            LEFT JOIN users on topics.userId = users.ID
             WHERE topics.ID_Topic = ?
         `;
+        console.log(query, [id], userId);
         server.api.bdd.query(query, [id], (err, result) => {
             if (err) {
                 reject(err);

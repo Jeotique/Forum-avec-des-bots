@@ -29,6 +29,15 @@
                             <p>Tags: <%= topic.tags %></p>
                             <p>État: <%= topic.etat %></p>
                             <p>Créé par: <%= topic.username %> le <%= topic.createdAt %></p>
+
+                            <% if (user && user.ID === topic.userId) { %>
+                                <form action="/topics/<%= topic.ID_Topic %>/edit" method="GET">
+                                    <button type="submit">Modifier</button>
+                                </form>
+                                <form action="/topics/<%= topic.ID_Topic %>/delete" method="POST">
+                                    <button type="submit">Supprimer</button>
+                                </form>
+                            <% } %>
                         </div>
                     <% }) %>
                 <% } %>

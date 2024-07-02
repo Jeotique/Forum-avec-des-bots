@@ -8,7 +8,7 @@ exports.CreateResponse = async (req, res, server) => {
     }
 
     try {
-        const created = await server.api.functions.reponse.Create(content, userId, postId, server);
+        const created = await server.api.functions.reponses.Create(content, userId, postId, server);
         if (created) {
             return res.redirect(`/posts/${postId}`);
         } else {
