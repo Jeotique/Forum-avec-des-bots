@@ -1,0 +1,50 @@
+<h2>All Topics</h2>
+
+<ul>
+  <% topics.forEach(topic => { %>
+    <li>
+      <div class="topic-header">
+        <a class="topic-title" href="/topics/<%= topic.id %>"><%= topic.title %></a>
+        <% if (user && (topic.user_id === user.id || user.isAdmin)) { %>
+          <div class="topic-actions">
+            <button class="edit-topic-btn" data-id="<%= topic.id %>"><i class="fas fa-edit"></i></button>
+            <form action="/topics/<%= topic.id %>?_method=DELETE" method="POST" style="display:inline;">
+              <button type="submit" class="delete-btn"><i class="fas fa-trash"></i></button>
+            </form>
+          </div>
+        <% } %>
+      </div>
+      <p><%= topic.description %></p>
+      <p>Tags: <%= topic.tags %></p>
+      <form action="/topics/<%= topic.id %>?_method=PUT" method="POST" class="edit-topic-form" data-id="<%= topic.id %>" style="display:none;">
+        <input type="text" name="title" value="<%= topic.title %>">
+        <textarea name="description"><%= topic.description %></textarea>
+        <input type="text" name="tags" value="<%= topic.tags %>" class="tagify-input" placeholder="Comma-separated tags">
+        <select name="status">
+          <option value="open" <%= topic.status === 'open' ? 'selected' : '' %>>Open</option>
+          <option value="closed" <%= topic.status === 'closed' ? 'selected' : '' %>>Closed</option>
+          <option value="archived" <%= topic.status === 'archived' ? 'selected' : '' %>>Archived</option>
+        </select>
+        <select name="visibility">
+          <option value="public" <%= topic.visibility === 'public' ? 'selected' : '' %>>Public</option>
+          <option value="private" <%= topic.visibility === 'private' ? 'selected' : '' %>>Private</option>
+        </select>
+        <button type="submit">Update</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+<% if (user) { %>
+  <h3>Create a New Topic</h3>
+  <form action="/topics" method="POST">
+    <input type="text" name="title" placeholder="Topic title" required>
+    <textarea name="description" placeholder="Topic description" required></textarea>
+    <input type="text" name="tags" class="tagify-input" placeholder="Comma-separated tags">
+    <select name="visibility">
+      <option value="public">Public</option>
+      <option value="private">Private</option>
+    </select>
+    <button type="submit">Create Topic</button>
+  </form>
+<% } %>

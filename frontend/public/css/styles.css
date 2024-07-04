@@ -1,0 +1,262 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  header, footer {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  header h1 {
+    margin: 0;
+  }
+  
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  nav ul li {
+    margin: 0 15px;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  nav ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  main {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  footer p {
+    margin: 0;
+  }
+  
+  h2, h3 {
+    color: #444;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background: white;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  button, input[type="submit"] {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover, input[type="submit"]:hover {
+    background: #0056b3;
+  }
+  
+  form {
+    max-width: 600px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  input[type="text"], input[type="email"], input[type="password"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .alert {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .edit-btn, .edit-topic-btn, .edit-post-btn, .edit-comment-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover, .edit-topic-btn:hover, .edit-post-btn:hover, .edit-comment-btn:hover {
+    color: #0056b3;
+  }
+  
+  .delete-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+  }
+  
+  .delete-btn:hover {
+    color: #c82333;
+  }
+  
+  .form-inline {
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-inline input, .form-inline button {
+    margin-right: 10px;
+  }
+  
+  /* Specific styles for the topic page */
+  .topic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .topic-header .topic-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .topic-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .topic-actions button, .topic-actions form {
+    margin: 0;
+  }
+  
+  /* Specific styles for posts */
+  .post {
+    margin-bottom: 20px;
+  }
+  
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .post-header .post-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .post-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .post-actions button, .post-actions form {
+    margin: 0;
+  }
+  
+  .post-content {
+    margin: 10px 0;
+  }
+  
+  /* Center post content */
+  .post-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Specific styles for comments */
+  .comment {
+    margin-bottom: 10px;
+  }
+  
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .comment-header .comment-content {
+    font-size: 16px;
+  }
+  
+  .comment-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .comment-actions button, .comment-actions form {
+    margin: 0;
+  }
+  
+  .comment-content {
+    margin: 10px 0;
+  }
+  

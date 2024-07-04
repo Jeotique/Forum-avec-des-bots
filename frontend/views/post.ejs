@@ -1,0 +1,69 @@
+<div class="post-container">
+    <p><img src="/uploads/<%= post.profile_pic %>" alt="Profile Picture" style="width:100px;height:100px;"> <%= post.username %></p>
+    <h2><%= post.title %></h2>
+    <p><%= post.content %></p>
+    <% if (post.image) { %> 
+      <img src="/uploads/<%= post.image %>" alt="Post Image" style="width:300px;height:180px;">
+    <% } %>
+      <form action="/posts/<%= post.id %>/like" method="POST" style="display:inline;">
+        <button type="submit"><i class="fas fa-thumbs-up"><%= post.likes %></i></button>
+      </form>
+      <form action="/posts/<%= post.id %>/dislike" method="POST" style="display:inline;">
+        <button type="submit"><i class="fas fa-thumbs-down"></i><%= post.dislikes %></button>
+      </form>
+    </p>
+  
+    <% if (user && (post.user_id === user.id || user.isAdmin)) { %>
+      <div class="post-actions">
+        <button class="edit-post-btn" data-id="<%= post.id %>"><i class="fas fa-edit"></i></button>
+        <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" style="display:inline;">
+          <button type="submit" class="delete-btn"><i class="fas fa-trash"></i></button>
+        </form>
+      </div>
+      <form action="/posts/<%= post.id %>?_method=PUT" method="POST" class="edit-post-form" data-id="<%= post.id %>" style="display:none;">
+        <input type="text" name="title" value="<%= post.title %>">
+        <textarea name="content"><%= post.content %></textarea>
+        <input type="text" name="tags" value="<%= post.tags %>">
+        <button type="submit">Update</button>
+      </form>
+    <% } %>
+  
+    <h3>Comments</h3>
+    <ul>
+      <% comments.forEach(comment => { %>
+        <li class="comment">
+          <div class="comment-header">
+            <p class="comment-content"><%= comment.content %></p>
+            <% if (user && (comment.user_id === user.id || user.isAdmin)) { %>
+              <div class="comment-actions">
+                <button class="edit-btn" data-id="<%= comment.id %>"><i class="fas fa-edit"></i></button>
+                <form action="/comments/<%= comment.id %>?_method=DELETE" method="POST" style="display:inline;">
+                  <button type="submit" class="delete-btn"><i class="fas fa-trash"></i></button>
+                </form>
+              </div>
+            <% } %>
+          </div>
+          <p><img src="/uploads/<%= comment.profile_pic %>" alt="Profile Picture" style="width:30px;height:30px;"> <%= comment.username %></p>
+            <form action="/comments/<%= comment.id %>/like" method="POST" style="display:inline;">
+              <button type="submit"><i class="fas fa-thumbs-up"><%= comment.likes %></i></button>
+            </form>
+            <form action="/comments/<%= comment.id %>/dislike" method="POST" style="display:inline;">
+              <button type="submit"><i class="fas fa-thumbs-down"><%= comment.dislikes %></i></button>
+            </form>
+          </p>
+          <form action="/comments/<%= comment.id %>?_method=PUT" method="POST" class="edit-form" data-id="<%= comment.id %>" style="display:none;">
+            <textarea name="content"><%= comment.content %></textarea>
+            <button type="submit">Update</button>
+          </form>
+          <p><%= comment.created_at %></p>
+        </li>
+      <% }) %>
+    </ul>
+  
+    <h3>Add a Comment</h3>
+    <form action="/posts/<%= post.id %>/comments" method="POST">
+      <textarea name="content" placeholder="Add a comment" required></textarea>
+      <button type="submit">Comment</button>
+    </form>
+  </div>
+  

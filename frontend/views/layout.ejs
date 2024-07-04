@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Forum</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.9.7/tagify.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.9.7/tagify.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Car Forum</h1>
+    <nav>
+      <ul>
+        <li><a href="/" style="color: blue;">Home</a></li>
+        <li><a href="/topics" style="color: blue;">Topics</a></li>
+        <% if (!user) { %>
+          <li><a href="/auth/login" style="color: blue;">Login</a></li>
+          <li><a href="/auth/register" style="color: blue;">Register</a></li>
+        <% } else { %>
+          <li><a href="/profile" style="color: blue;">Profile</a></li>
+          <li><form action="/auth/logout" method="POST" style="display:inline; color: blue;"><button type="submit">Logout</button></form></li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <%- body %>
+  </main>
+  <footer>
+    <p>&copy; 2024 Car Forum</p>
+  </footer>
+  <script src="/js/scripts.js"></script>
+</body>
+</html>

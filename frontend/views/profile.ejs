@@ -1,0 +1,102 @@
+<h2>Profile</h2>
+
+<% if (messages.success) { %>
+  <div class="alert alert-success"><%= messages.success %></div>
+<% } %>
+<% if (messages.error) { %>
+  <div class="alert alert-danger"><%= messages.error %></div>
+<% } %>
+
+<form action="/profile/update" method="POST" enctype="multipart/form-data">
+  <div>
+    <label for="username">Username</label>
+    <input type="text" name="username" value="<%= user.username %>">
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" name="email" value="<%= user.email %>">
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" name="password">
+  </div>
+  <div>
+    <label for="profilePic">Profile Picture</label>
+    <input type="file" name="profilePic">
+    <% if (user.profile_pic) { %>
+      <img src="/uploads/<%= user.profile_pic %>" alt="Profile Picture" style="width:100px;height:100px;">
+    <% } %>
+  </div>
+  <button type="submit">Update Profile</button>
+</form>
+
+<h3>Your Topics</h3>
+<ul>
+  <% topics.forEach(topic => { %>
+    <li>
+      <a href="/topics/<%= topic.id %>"><%= topic.title %></a>
+      <p><%= topic.description %></p>
+      <p>Tags: <%= topic.tags %></p>
+      <div class="topic-actions">
+        <button class="edit-topic-btn" data-id="<%= topic.id %>"><i class="fas fa-edit"></i></button>
+        <form action="/topics/<%= topic.id %>?_method=DELETE" method="POST" style="display:inline;">
+          <button type="submit" class="delete-btn"><i class="fas fa-trash"></i></button>
+        </form>
+      </div>
+      <form action="/topics/<%= topic.id %>?_method=PUT" method="POST" class="edit-topic-form" data-id="<%= topic.id %>" style="display:none;">
+        <input type="text" name="title" value="<%= topic.title %>">
+        <textarea name="description"><%= topic.description %></textarea>
+        <input type="text" name="tags" value="<%= topic.tags %>" placeholder="Comma-separated tags">
+        <button type="submit">Update</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+<h3>Your Posts</h3>
+<ul>
+  <% posts.forEach(post => { %>
+    <li class="post">
+      <div class="post-header">
+        <a class="post-title" href="/posts/<%= post.id %>"><%= post.title %></a>
+        <div class="post-actions">
+          <button class="edit-post-btn" data-id="<%= post.id %>"><i class="fas fa-edit"></i></button>
+          <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="delete-btn"><i class="fas fa-trash"></i></button>
+          </form>
+        </div>
+      </div>
+      <p class="post-content"><%= post.content %></p>
+      <p>Tags: <%= post.tags %></p>
+      <form action="/posts/<%= post.id %>?_method=PUT" method="POST" class="edit-post-form" data-id="<%= post.id %>" style="display:none;">
+        <input type="text" name="title" value="<%= post.title %>">
+        <textarea name="content"><%= post.content %></textarea>
+        <input type="text" name="tags" value="<%= post.tags %>">
+        <button type="submit">Update</button>
+      </form>
+      <%= post.created_at %>
+    </li>
+  <% }) %>
+</ul>
+
+<h3>Your Comments</h3>
+<ul>
+  <% comments.forEach(comment => { %>
+    <li class="comment">
+      <div class="comment-header">
+        <p class="comment-content"><%= comment.content %></p>
+        <div class="comment-actions">
+          <button class="edit-comment-btn" data-id="<%= comment.id %>"><i class="fas fa-edit"></i></button>
+          <form action="/comments/<%= comment.id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="delete-btn"><i class="fas fa-trash"></i></button>
+          </form>
+        </div>
+      </div>
+      <form action="/comments/<%= comment.id %>?_method=PUT" method="POST" class="edit-comment-form" data-id="<%= comment.id %>" style="display:none;">
+        <textarea name="content"><%= comment.content %></textarea>
+        <button type="submit">Update</button>
+      </form>
+      <p><%= comment.created_at %></p>
+    </li>
+  <% }) %>
+</ul>

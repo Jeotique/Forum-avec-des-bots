@@ -1,0 +1,71 @@
+<div class="topic-header">
+  <h2 class="topic-title"><%= topic.title %></h2>
+  <% if (user && (topic.user_id === user.id || user.isAdmin)) { %>
+    <div class="topic-actions">
+      <button class="edit-topic-btn" data-id="<%= topic.id %>"><i class="fas fa-edit"></i></button>
+      <form action="/topics/<%= topic.id %>?_method=DELETE" method="POST" style="display:inline;">
+        <button type="submit" class="delete-btn"><i class="fas fa-trash"></i></button>
+      </form>
+    </div>
+  <% } %>
+</div>
+<p><%= topic.description %></p>
+<p>Status: <%= topic.status %></p>
+
+<h3>Posts</h3>
+<% if (topic.status === 'closed') { %>
+  <p>This topic is closed. No new posts can be added.</p>
+<% } else { %>
+  <ul>
+    <% posts.forEach(post => { %>
+      <li class="post">
+        <div class="post-header">
+        <p><img src="/uploads/<%= post.profile_pic %>" alt="Profile Picture" style="width:50px;height:50px;"> <%= post.username %></p>
+          <a class="post-title" href="/posts/<%= post.id %>"><%= post.title %></a>
+          <% if (user && (post.user_id === user.id || user.isAdmin)) { %>
+            <div class="post-actions">
+              <button class="edit-post-btn" data-id="<%= post.id %>"><i class="fas fa-edit"></i></button>
+              <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" style="display:inline;">
+                <button type="submit" class="delete-btn"><i class="fas fa-trash"></i></button>
+              </form>
+            </div>
+          <% } %>
+        </div>
+        <p class="post-content"><%= post.content %></p>
+        <% if (post.image) { %> 
+          <img src="/uploads/<%= post.image %>" alt="Post Image" style="width:300px;height:180px;">
+        <% } %>
+        <p>Tags: <%= post.tags %></p>
+          <form action="/posts/<%= post.id %>/like" method="POST" style="display:inline;">
+            <button type="submit"><i class="fas fa-thumbs-up"></i><%= post.likes %></button>
+          </form>
+          <form action="/posts/<%= post.id %>/dislike" method="POST" style="display:inline;">
+            <button type="submit"><i class="fas fa-thumbs-down"></i><%= post.dislikes %></button>
+          </form>
+        </p>
+        <form action="/posts/<%= post.id %>?_method=PUT" method="POST" class="edit-post-form" data-id="<%= post.id %>" style="display:none;">
+          <input type="text" name="title" value="<%= post.title %>">
+          <textarea name="content"><%= post.content %></textarea>
+          <input type="text" name="tags" value="<%= post.tags %>">
+          <button type="submit">Update</button>
+        </form>
+      <p><%= post.created_at %></p>
+      </li>
+    <% }) %>
+  </ul>
+  
+  <h3>Add a Post</h3>
+  <form action="/posts" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="topicId" value="<%= topic.id %>">
+    <input type="text" name="title" placeholder="Post title" required>
+    <textarea name="content" placeholder="Post content" required></textarea>
+    <select name="tags" multiple class="tagify-input">
+      <% topic.tags.split(',').forEach(tag => { %>
+        <option value="<%= tag.trim() %>"><%= tag.trim() %></option>
+      <% }) %>
+    </select>
+    <p>dfh</p>
+    <input type="file" name="image">
+    <button type="submit">Add Post</button>
+  </form>
+<% } %>
