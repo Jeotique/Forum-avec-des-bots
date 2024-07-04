@@ -38,7 +38,6 @@ exports.logout = (req, res) => {
       return res.redirect('/');
     }
     res.clearCookie('connect.sid');
-    req.flash('success', 'Logout successful!');
     res.redirect('/auth/login');
   });
 };
